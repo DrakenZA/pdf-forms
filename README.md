@@ -66,6 +66,16 @@ Any options shown above can also be set when initializing the PdfForms
 instance. In this case, options given to `fill_form` will override the global
 options.
 
+## FAQ
+
+### Umlauts / accented characters do not show up in form fields of the resulting document
+
+First of all, make sure your data (what you fill into the form fields) is valid UTF-8.
+
+Usually this is just a font problem (embedded fonts in your PDF form do not contain those characters). Please run `pdftk your_filled_out_form.pdf dump_data_fields_utf8` and check the `FieldValue` of the fields where you think characters are missing.
+
+If they show up here, this gem and PDFTK worked correctly (as the value is stored in the PDF) and it's just a problem with your PDF document. Go back to Acrobat and fix it (i.e. by embedding complete fonts / turning off optimizations that only embed the subset of characters that's actually used). If the characters indeed aren't there in the dump_data_fields_output, please open an issue and post a form and code snippet for me to reproduce. Email me your form and code snippet if it's somewhat confidential.
+
 ### Prior Art
 
 The FDF generation part is a straight port of Steffen Schwigon's PDF::FDF::Simple perl module. Didn't port the FDF parsing, though ;-)
