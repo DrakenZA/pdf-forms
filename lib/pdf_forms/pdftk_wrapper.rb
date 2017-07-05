@@ -40,7 +40,7 @@ module PdfForms
       fdf.save_to tmp.path
       fill_options = {:tmp_path => tmp.path}.merge(fill_options)
 
-      args = [ q_template, 'fill_form', normalize_path(tmp.path), 'output', q_destination ]
+      args = [ q_template, 'fill_form', normalize_path(tmp.path), 'output', q_destination, 'need_appearances' ]
       result = call_pdftk(*(append_options(args, fill_options)))
 
       unless File.readable?(destination) && File.size(destination) > 0
